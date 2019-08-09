@@ -93,4 +93,16 @@ class text extends Controller
             session()->flash('success', 'Product removed successfully');
         }
     }
+
+
+
+    public function api(){
+        $text = \App\Text::all();
+        return $text->toArray();
+    }
+    public function parse(){
+
+
+        return view('parse');
+    }
 }

@@ -7,6 +7,8 @@
 </head>
 <body>
 	<a href="{{url('/cart')}}">cart</a>
+	<a href="{{url('/api')}}">api</a>
+	<a href="/parse">parse</a>
 	<br>
 
 	<hr>
@@ -46,6 +48,7 @@
 		        url: '/ajax/', 
 		        data:{message: tAnswer.value},  
 		    });
+		    $('#add').val('');
 		}
 
 		function deletetext(a){

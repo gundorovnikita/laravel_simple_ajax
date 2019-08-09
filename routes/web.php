@@ -24,7 +24,9 @@ Route::get('add-to-cart/{id}', 'Text@addToCart');
 
 Route::delete('remove-from-cart', 'Text@remove');
 
+Route::get('/api', 'Text@api');
 
+Route::get('/parse', 'Text@parse');
 
 
 
