@@ -12,17 +12,16 @@
 	<br>
 
 	<hr>
+	<div class="text" >
 	@foreach($text as $text)
-	<div class="text" id="{{$text->id}}">
-		{{$text->text}}
-		<button onclick="deletetext( {{ $text->id }} )">delete</button>
-		
-		<a href="{{ url('add-to-cart/'.$text->id) }}"> add to cart </a>
-		<br>
-	</div>
+		<div class=detail>
+			{{$text->text}}
+			<button class="del" data-id="{{$text->id}}">delete</button>
+			
+			<a href="{{ url('add-to-cart/'.$text->id) }}"> add to cart </a>
+			<br>
+		</div>
 	@endforeach
-	<div id="field">
-		
 	</div>
 
 	<input type="text" id="add">
@@ -41,24 +40,30 @@
 
 		function send(){
 		    var tAnswer = document.getElementById("add"); 
+		    var text = tAnswer.value;
 		    console.log(tAnswer.value);
-		    $('#field').append(tAnswer.value,'<button>delete</button>', '<br>' )
+		    
 		    $.ajax({
 		    	type: 'POST',
 		        url: '/ajax/', 
 		        data:{message: tAnswer.value},  
+		        success: function(e) {
+		        	var id = e.id;
+		        	
+				 	
+				 	$('.text').append('<div class="detail">'+text+' '+'<button class="del" data-id="'+id+'">delete</button><a href="{{ url("add-to-cart/'+id+'") }}"> add to cart </a></div>' )
+				 },
 		    });
 		    $('#add').val('');
 		}
-
-		function deletetext(a){
-			 console.log(a);
-			 var hide = document.getElementById(a);
-			 $(hide).hide();
+		
+		$(".text").on("click", "button.del", function(){
+			 var id = $(this).data("id");
+			 $(this).parent().hide();
 			 $.ajax({
 				 url: '/delete/',
 				 type: 'POST',
-				 data: {id: a},
+				 data: {id: id},
 				 success: function(d) {
 				 console.log(d);
 				 },
@@ -66,7 +71,7 @@
 				 console.log(d);
 				 }
  			 });
-		}
+		});
 
 		
 	</script>

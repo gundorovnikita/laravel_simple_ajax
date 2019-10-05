@@ -18,7 +18,10 @@ class text extends Controller
     	$message = new \App\Text();
     	$message->text = $request->message;
     	$message->save();
-    	return response()->json(['succes'=>'yes']);
+        $data =  [
+            'id'=> $message->id
+        ];
+    	return response()->json($data);
     }
     public function delete(Request $request){
     	$text = \App\Text::find($request->id);
@@ -101,8 +104,6 @@ class text extends Controller
         return $text->toArray();
     }
     public function parse(){
-
-
         return view('parse');
     }
 }
